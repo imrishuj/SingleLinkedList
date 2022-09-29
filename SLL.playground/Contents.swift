@@ -69,6 +69,29 @@ public struct SingleLinkedList<T>  {
         return true
     }
     
+    // To check list is loop or not
+    
+    public var isLoop: Bool {
+        guard let node = self.headNode else {
+            return false
+        }
+        var firstNode: LinkedListNode<T>?
+        var secondNode: LinkedListNode<T>?
+        firstNode = node
+        secondNode = node
+        while (firstNode != nil && secondNode != nil) {
+            firstNode = firstNode?.next
+            secondNode = secondNode?.next
+            if secondNode != nil {
+                secondNode = secondNode?.next
+            }
+            if (firstNode === secondNode) {
+                return true
+            }
+        }
+        return false
+    }
+    
     /* 1. push: Adds a value at the front of the list. */
     
     public mutating func push(_ value: T) {
@@ -288,6 +311,9 @@ let list3 = createAndFetchLinkedList(array: &array2)
 var list4 = createAndFetchLinkedList(array: &sortedArray1)
 let list5 = createAndFetchLinkedList(array: &sortedArray2)
 
+//print("List is loop", list1.isLoop)
+//list1.tailNode?.next = list1.headNode?.next
+//print("List is loop", list1.isLoop)
 //print("List elements are", list1.display())
 //print("List is sorted", list1.isSorted)
 //print("Sum of elements are", list1.sum())
